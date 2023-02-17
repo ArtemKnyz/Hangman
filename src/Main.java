@@ -4,17 +4,43 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         Path p1 = Paths.get("russian-nouns.txt");
         List<String> content = Files.readAllLines(p1);
+        Random random = new Random();
+        String word = content.get(random.nextInt(34012));
+        System.out.println(word);
+        StringBuilder shifrWord = new StringBuilder();
+
+            for (int i = 0; i < word.length(); i++) {
+                shifrWord = shifrWord.append("*");
+            }
+        System.out.println(shifrWord);
+
+        word.length();
+
         Iterator<String> iterator = content.iterator();
         int i = 0;
-        char[][] m = new char[8][8];
+        char[][] m = new char[5][10];
+
+        Field field = new Field();
+        field.getFieldArray();
+
+
+        Scanner scan = new Scanner(System.in);
+        System.out.print("\n" + "напиши какая буква есть в слове ?: ");
+        String s = scan.nextLine();
+        System.out.println(s);
+        if (word.contains(s)) {
+            System.out.println("Поздравляю! Ты угадал букву!");
+        }
 
         m[0][0] = (char) 95;
-        //m[1][0] = (char) 95;
+        m[0][0] = (char) 95;
 
         m[1][4] = (char) 124;
         m[1][5] = (char) 95;
