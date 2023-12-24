@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -39,26 +40,34 @@ public class Main {
 
             Gallow hangman = new Gallow();
             System.out.println(hangman.hangmanImage[0]);
+            List<String> wrongLetters = new ArrayList<>();
+            List<Character> rightLetters = new ArrayList<>();
 
             while (numberError < countAttempt) {
+
 
                 System.out.print("Введите букву: ");
                 char s = scan.next().charAt(0);
                 boolean error = false;
 
                 for (int i = 0; i < word.length(); i++) {
+
                     if (s == word.charAt(i)) {
                         sb.setCharAt(i, s);
                         error = true;
+                        rightLetters.add(s);
                     }
                 }
                 if (!error) {
                     numberError++;
+                    wrongLetters.add(String.valueOf(s));
+
                 }
                 System.out.println("\n" + hangman.hangmanImage[numberError]);
                 System.out.println("Загаданное слово: " + sb);
-                System.out.println("Ошибок: " + numberError);
-                System.out.println("Осталось " + (countAttempt - numberError) + " попыток \n");
+                System.out.print("Ошибки" + "(" + numberError + "): ");
+                wrongLetters.forEach(System.out::print);
+                System.out.println("\nОсталось попытки: " + (countAttempt - numberError) + "\n");
             }
         }
     }
