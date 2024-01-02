@@ -28,43 +28,53 @@ public class Main {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Неверный ввод!");
+                continue;
             }
-            Path p1 = Paths.get("russian-nouns.txt");
+            Path p1 = Paths.get("src/resources/russian-nouns.txt");
             List<String> content = Files.readAllLines(p1);
             Random random = new Random();
             String word = content.get(random.nextInt(34012));
-            System.out.println(word);  // здесь вывести зашифрованное слово ****
+            //System.out.println(word);  // зашифрованное слово ****
             String newString = word.replace(word, "*".repeat(word.length()));
             StringBuilder sb = new StringBuilder(newString);
             System.out.println("\n Загаданное слово: " + sb);
 
             Gallow hangman = new Gallow();
             System.out.println(hangman.hangmanImage[0]);
+
             List<String> wrongLetters = new ArrayList<>();
-            List<Character> rightLetters = new ArrayList<>();
 
             while (numberError < countAttempt) {
 
 
                 System.out.print("Введите букву: ");
-                char s = scan.next().charAt(0);
+                char s = Character.toLowerCase(scan.next().charAt(0));
                 boolean error = false;
 
                 for (int i = 0; i < word.length(); i++) {
 
-                    if (s == word.charAt(i)) {
+                    if (s == word.toLowerCase().charAt(i)) {
                         sb.setCharAt(i, s);
                         error = true;
-                        rightLetters.add(s);
                     }
                 }
                 if (!error) {
+                    if (wrongLetters.contains(String.valueOf(s))) {
+                        System.out.println("Символ введен повторно");
+                        continue;
+
+                    }
                     numberError++;
-                    wrongLetters.add(String.valueOf(s));
+                    wrongLetters.add(String.valueOf(Character.toLowerCase(s)));
 
                 }
+
                 System.out.println("\n" + hangman.hangmanImage[numberError]);
-                System.out.println("Загаданное слово: " + sb);
+                if (numberError == countAttempt) {
+                    System.out.println("Загаданное слово: " + word);
+                } else {
+                    System.out.println("Загаданное слово: " + sb);
+                }
                 System.out.print("Ошибки" + "(" + numberError + "): ");
                 wrongLetters.forEach(System.out::print);
                 System.out.println("\nОсталось попытки: " + (countAttempt - numberError) + "\n");
