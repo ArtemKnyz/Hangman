@@ -14,8 +14,8 @@ public class Main {
 
         Scanner scan = new Scanner(System.in);
         int countAttempt = 6;
-
         int startOrNot;
+
         while (true) {
             System.out.println("Начнем новую игру?");
             System.out.println("Да - 1, Нет - любая другая цифра");
