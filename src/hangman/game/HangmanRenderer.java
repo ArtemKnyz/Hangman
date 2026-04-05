@@ -5,8 +5,13 @@ public class HangmanRenderer {
     private final String[] stages = {
             "=========\n  |   |\n      |\n      |\n      |\n      |\n=========",
             "=========\n  |   |\n  O   |\n      |\n      |\n      |\n=========",
-            // ...
+            "=========\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========",
+            "=========\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========",
+            "=========\n  |   |\n  O   |\n /|\\  |\n      |\n      |\n=========",
+            "=========\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========",
+            "=========\n  |   |\n  O   |\n /|\\  |\n / \\  |\n      |\n========="
     };
+
 
     public String getStage(int errors) {
         if (errors < 0) errors = 0;

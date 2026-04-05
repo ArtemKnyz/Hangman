@@ -1,8 +1,10 @@
 package hangman.game;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,7 +19,7 @@ public class WordService {
     }
 
     private void loadWords() {
-        try {
+
             InputStream is = getClass()
                     .getClassLoader()
                     .getResourceAsStream("resources/russian-nouns.txt");
@@ -25,14 +27,15 @@ public class WordService {
                 throw new RuntimeException("Файл не найден!");
             }
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                words.add(line.trim());
+                String trimmed = line.trim();
+                if (!trimmed.isEmpty()) {       // защита от пустых строк в файле
+                    words.add(trimmed);
+                }
             }
-
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException("Ошибка загрузки слов", e);
         }
     }

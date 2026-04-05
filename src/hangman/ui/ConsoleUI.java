@@ -1,10 +1,7 @@
 package hangman.ui;
 
 
-import hangman.game.Game;
-import hangman.game.GameStatus;
-import hangman.game.HangmanRenderer;
-import hangman.game.WordService;
+import hangman.game.*;
 
 
 import java.util.Scanner;
@@ -34,9 +31,7 @@ public class ConsoleUI {
         Game game = new Game(wordService.getRandomWord(), 6);
 
         while (game.getStatus() == GameStatus.IN_PROGRESS) {
-            int errorsCount = 6 - game.getRemainingAttempts();
 
-            System.out.println(renderer.getStage(errorsCount));
             System.out.println("\nСлово: " + game.getMaskedWord());
             System.out.println("Ошибки: " + game.getWrongLetters());
             System.out.println("Осталось попыток: " + game.getRemainingAttempts());
@@ -50,11 +45,17 @@ public class ConsoleUI {
 
             char letter = input.charAt(0);
 
-            boolean correct = game.guess(letter);
+            GuessResult result = game.guess(letter);
+            int errorsCount = 6 - game.getRemainingAttempts();
 
-            if (!correct) {
-                System.out.println("Неверно!");
+            switch (result) {
+                case WRONG -> System.out.println("Неверно!");
+                case ALREADY_GUESSED -> System.out.println("Эта буква уже была!");
+                case CORRECT -> System.out.println("Верно!");
             }
+            System.out.println(renderer.getStage(errorsCount));
+
+
         }
 
         if (game.getStatus() == GameStatus.WON) {

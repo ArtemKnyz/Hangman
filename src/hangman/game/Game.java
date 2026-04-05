@@ -17,22 +17,6 @@ public class Game {
         this.maxErrors = maxErrors;
     }
 
-    public boolean guess(char letter) {
-        letter = Character.toLowerCase(letter);
-
-        if (guessedLetters.contains(letter) || wrongLetters.contains(letter)) {
-            return false;
-        }
-
-        if (word.indexOf(letter) >= 0) {
-            guessedLetters.add(letter);
-            return true;
-        } else {
-            wrongLetters.add(letter);
-            errors++;
-            return false;
-        }
-    }
 
     public String getMaskedWord() {
         StringBuilder sb = new StringBuilder();
@@ -68,5 +52,22 @@ public class Game {
 
     public String getWord() {
         return word;
+    }
+
+    public GuessResult guess(char letter) {
+        GuessResult result;
+        letter = Character.toLowerCase(letter);
+
+        if (guessedLetters.contains(letter) || wrongLetters.contains(letter)) {
+            result = GuessResult.ALREADY_GUESSED;
+        } else if (word.indexOf(letter) >= 0) {
+            guessedLetters.add(letter);
+            result = GuessResult.CORRECT;
+        } else {
+            wrongLetters.add(letter);
+            errors++;
+            result = GuessResult.WRONG;
+        }
+        return result;
     }
 }
