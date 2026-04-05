@@ -20,18 +20,18 @@ public class WordService {
 
     private void loadWords() {
 
-            InputStream is = getClass()
-                    .getClassLoader()
-                    .getResourceAsStream("resources/russian-nouns.txt");
-            if (is == null) {
-                throw new RuntimeException("Файл не найден!");
-            }
+        InputStream is = getClass()
+                .getClassLoader()
+                .getResourceAsStream("resources/russian-nouns.txt");
+        if (is == null) {
+            throw new RuntimeException("Файл не найден!");
+        }
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String trimmed = line.trim();
-                if (!trimmed.isEmpty()) {       // защита от пустых строк в файле
+                if (!trimmed.isEmpty()) {
                     words.add(trimmed);
                 }
             }
