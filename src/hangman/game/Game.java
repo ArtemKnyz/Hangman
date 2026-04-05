@@ -57,9 +57,6 @@ public class Game {
         return GameStatus.IN_PROGRESS;
     }
 
-    public int getErrors() {
-        return errors;
-    }
 
     public int getRemainingAttempts() {
         return maxErrors - errors;

@@ -18,10 +18,12 @@ public class WordService {
 
     private void loadWords() {
         try {
-            System.out.println("Путь поиска: " + getClass().getClassLoader().getResource(".").getPath());
             InputStream is = getClass()
                     .getClassLoader()
                     .getResourceAsStream("resources/russian-nouns.txt");
+            if (is == null) {
+                throw new RuntimeException("Файл не найден!");
+            }
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 

@@ -14,7 +14,4 @@ public class HangmanRenderer {
         return stages[errors];
     }
 
-    public int getMaxErrors() {
-        return stages.length - 1;
-    }
 }
