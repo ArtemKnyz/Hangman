@@ -38,7 +38,8 @@ public class ConsoleUI {
 
             System.out.print("Введите букву: ");
             String input = scanner.nextLine();
-            if (input.length() != 1) {
+
+            if (input.length() != 1 || !Character.isLetter(input.charAt(0))) {
                 System.out.println("Введите ОДНУ букву!");
                 continue;
             }
