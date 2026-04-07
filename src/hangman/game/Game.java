@@ -38,6 +38,8 @@ public class Game {
         if (!getMaskedWord().contains("*")) {
             return GameStatus.WON;
         }
+
+
         return GameStatus.IN_PROGRESS;
     }
 

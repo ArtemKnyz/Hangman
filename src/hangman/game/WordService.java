@@ -22,7 +22,7 @@ public class WordService {
 
         InputStream is = getClass()
                 .getClassLoader()
-                .getResourceAsStream("resources/russian-nouns.txt");
+                .getResourceAsStream("russian-nouns.txt");
         if (is == null) {
             throw new RuntimeException("Файл не найден!");
         }
