@@ -3,7 +3,6 @@ package hangman.ui;
 
 import hangman.game.*;
 
-
 import java.util.Scanner;
 
 public class ConsoleUI {
