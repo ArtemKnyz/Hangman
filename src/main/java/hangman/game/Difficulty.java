@@ -14,4 +14,13 @@ public enum Difficulty {
     public int getMaxErrors() {
         return maxErrors;
     }
+
+    @Override
+    public String toString() {
+        return switch (this) {
+            case EASY -> "Легко";
+            case MEDIUM -> "Средне";
+            case HARD -> "Сложно";
+        };
+    }
 }

@@ -24,10 +24,35 @@ public class ConsoleUI {
         }
     }
 
+    private Difficulty chooseDifficulty() {
+        System.out.println("Выберите сложность:");
+        System.out.println("1 - Легко (8 попыток)");
+        System.out.println("2 - Средне (6 попыток)");
+        System.out.println("3 - Сложно (4 попытки)");
+
+        String input = scanner.nextLine();
+
+        return switch (input) {
+            case "1" -> Difficulty.EASY;
+            case "2" -> Difficulty.MEDIUM;
+            case "3" -> Difficulty.HARD;
+            default -> {
+                System.out.println("Неверный ввод, выбрана средняя сложность.");
+                yield Difficulty.MEDIUM;
+            }
+        };
+    }
+
     private void playGame() {
 
+        Difficulty difficulty = chooseDifficulty();
         HangmanRenderer renderer = new HangmanRenderer();
-        Game game = new Game(wordService.getRandomWord(), 6);
+        System.out.println("Выбрана сложность: " + difficulty);
+
+        Game game = new Game(
+                wordService.getRandomWord(),
+                difficulty.getMaxErrors()
+        );
 
         while (game.getStatus() == GameStatus.IN_PROGRESS) {
 
@@ -64,6 +89,7 @@ public class ConsoleUI {
             System.out.println("  Вы проиграли! Слово: " + game.getWord());
         }
     }
+
 }
 
 
