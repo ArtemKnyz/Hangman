@@ -24,6 +24,16 @@ public class ConsoleUI {
         }
     }
 
+    public Difficulty parseDifficulty(String input) {
+        return switch (input) {
+            case "1" -> Difficulty.EASY;
+            case "2" -> Difficulty.MEDIUM;
+            case "3" -> Difficulty.HARD;
+            default -> Difficulty.MEDIUM;
+        };
+    }
+
+
     private Difficulty chooseDifficulty() {
         System.out.println("Выберите сложность:");
         System.out.println("1 - Легко (8 попыток)");
@@ -32,15 +42,13 @@ public class ConsoleUI {
 
         String input = scanner.nextLine();
 
-        return switch (input) {
-            case "1" -> Difficulty.EASY;
-            case "2" -> Difficulty.MEDIUM;
-            case "3" -> Difficulty.HARD;
-            default -> {
-                System.out.println("Неверный ввод, выбрана средняя сложность.");
-                yield Difficulty.MEDIUM;
-            }
-        };
+        Difficulty difficulty = parseDifficulty(input);
+
+        if (!input.equals("1") && !input.equals("2") && !input.equals("3")) {
+            System.out.println("Неверный ввод, выбрана средняя сложность.");
+        }
+
+        return difficulty;
     }
 
     private void playGame() {
@@ -71,7 +79,7 @@ public class ConsoleUI {
             char letter = input.charAt(0);
 
             GuessResult result = game.guess(letter);
-            int errorsCount = 6 - game.getRemainingAttempts();
+            int errorsCount = difficulty.getMaxErrors() - game.getRemainingAttempts();
 
             switch (result) {
                 case WRONG -> System.out.println("Неверно!");

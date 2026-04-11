@@ -7,6 +7,7 @@ public enum Difficulty {
 
     private final int maxErrors;
 
+
     Difficulty(int maxErrors) {
         this.maxErrors = maxErrors;
     }
